@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pulling Code to Jenkins Server') {
+            steps {
+                git branch: 'main', credentialsId: 'flask_cicd', url: 'git@github.com:akbar-alam/flask-CICD.git'
+            }
+        }
+        
+        stage('Pushing From Jenkins Server') {
+            steps {
+                sh "ls -al"
+                sh "bash ecs-deploy.sh"
+            }
+        }
+    }
+}
+
